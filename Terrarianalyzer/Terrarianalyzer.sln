@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Terrarianalyzer", "Terrarianalyzer\Terrarianalyzer.csproj", "{CAC0A94C-EA69-4E42-93B6-4E95C0A77EC5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CAC0A94C-EA69-4E42-93B6-4E95C0A77EC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAC0A94C-EA69-4E42-93B6-4E95C0A77EC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAC0A94C-EA69-4E42-93B6-4E95C0A77EC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAC0A94C-EA69-4E42-93B6-4E95C0A77EC5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {59330D85-C3F3-4E79-B130-F3A68085DE17}
+	EndGlobalSection
+EndGlobal
