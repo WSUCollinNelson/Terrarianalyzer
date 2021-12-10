@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Castle.MicroKernel.Registration;
+using Castle.Windsor;
+using Castle.Windsor.Installer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,6 +19,14 @@ namespace Terrarianalyzer
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            //Setup dependancy injection
+            using (WindsorContainer container = new WindsorContainer())
+            {
+                container.Register(Component.For<IProcessWorldSaves>().ImplementedBy<WorldSavesProcessor>());
+                WorldObject world = container.Resolve<IProcessWorldSaves>().GetWorldObject();
+            }
+
             Application.Run(new Form1());
         }
     }
