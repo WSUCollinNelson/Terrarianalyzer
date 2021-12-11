@@ -9,7 +9,9 @@ namespace Terrarianalyzer
 {
     public class WorldObject
     {
+        #region SectionOneValues
         public int Version { get; set; }
+        public List<bool> TileMasks { get; set; }
         public string WorldName { get; set; }
         public string WorldSeed { get; set; }
         public Int32 WorldHeight { get; set; }
@@ -52,6 +54,10 @@ namespace Terrarianalyzer
         public List<Int32> PartyMembers { get; set; } = new List<int>();
         public Int32 TreeTopsCount { get; set; }
         public List<Int32> TreeTops { get; set; } = new List<int>();
+        #endregion
+
+        List<TileObject> Tiles = new List<TileObject>();
+        List<ChestObject> Chests = new List<ChestObject>();
 
         public WorldObject(MemoryStream bytes)
         {
@@ -61,7 +67,7 @@ namespace Terrarianalyzer
             Int16 sectionCount = LoadInt16(bytes);
             Discard(bytes, 4 * sectionCount);
             Int16 tileMasks = LoadInt16(bytes);
-            Discard(bytes, (int)Math.Ceiling((decimal)tileMasks / 8));
+            TileMasks = LoadBitArray(bytes, (int)Math.Ceiling((decimal)tileMasks / 8));
             WorldName = LoadString(bytes);
             WorldSeed = LoadString(bytes);
             Discard(bytes, 44);
@@ -125,12 +131,140 @@ namespace Terrarianalyzer
                 TreeTops.Add(LoadInt32(bytes));
             }
             Discard(bytes, 23);
+
+            for (int x = 0; x < WorldWidth; x++)
+            {
+                for (int y = 0; y < WorldHeight; y++)
+                {
+                    byte activeFlags = LoadByteRaw(bytes);
+                    byte tileFlags;
+                    byte tileFlagsHighByte = default(byte);
+                    int wallType = 0;
+                    int tileType = 0;
+
+                    if (GetBit(activeFlags, 0))
+                    {
+                        tileFlags = LoadByteRaw(bytes);
+                        if (GetBit(tileFlags, 0))
+                        {
+                            tileFlagsHighByte = LoadByteRaw(bytes);
+                        }
+                    }
+
+                    if (GetBit(activeFlags, 1))
+                    {
+                        if (GetBit(activeFlags, 5))
+                        {
+                            int tileTypeHighByte = LoadByte(bytes);
+                            tileType = LoadByte(bytes);
+                            tileType = (tileType << 8 | tileTypeHighByte);
+                        }
+                        else
+                        {
+                            tileType = LoadByte(bytes);
+                        }
+
+
+                        if (TileMasks[tileType])
+                        {
+                            int textureU = LoadInt16(bytes);
+                            int textureV = (tileType == 144 ? 0 : LoadInt16(bytes));
+                        }
+                        else
+                        {
+                            int textureU = -1;
+                            int textureV = -1;
+                        }
+
+                        if (GetBit(tileFlagsHighByte, 3))
+                        {
+                            int color = LoadByte(bytes);
+                        }
+                    }
+
+                    if (GetBit(activeFlags, 2))
+                    {
+                        wallType = LoadByteRaw(bytes);
+                        if (GetBit(tileFlagsHighByte, 4))
+                        {
+                            int color = LoadByte(bytes);
+                        }
+                    }
+
+                    int liquidBits = (activeFlags & 0x18) >> 3;
+                    if (liquidBits != 0)
+                    {
+                        int liquidAmount = LoadByte(bytes);
+                    }
+
+                    if ((tileFlagsHighByte & 0x40) == 64)
+                    {
+                        int wallIDHighByte = LoadByte(bytes);
+                        wallType = wallIDHighByte << 8 | wallType;
+                    }
+
+                    int k = 0;
+                    if (GetBit(activeFlags, 6))
+                    {
+                        k = LoadByte(bytes);
+                    }
+                    if (GetBit(activeFlags, 7))
+                    { 
+                        k = LoadInt16(bytes);
+                    }
+
+                    Tiles.Add(new TileObject(tileType));
+
+                    for (int i = 0; i < k && y < WorldHeight; i++)
+                    {
+                        y++;
+                        Tiles.Add(new TileObject(tileType));
+                    }
+                }
+            }
+
+            int numberOfChests = LoadInt16(bytes);
+            int NumberOfSlots = LoadInt16(bytes);
+
+            for(int i = 0; i < numberOfChests; i++)
+            {
+                int chestX = LoadInt32(bytes);
+                int chestY = LoadInt32(bytes);
+                string chestName = LoadString(bytes);
+
+                List<ItemObject> items = new List<ItemObject>();
+                for (int j = 0; j < NumberOfSlots; j++)
+                {
+                    int stackSize = LoadInt16(bytes);
+                    if(stackSize != 0)
+                    {
+                        int itemID = LoadInt32(bytes);
+                        int itemPrefix = LoadByte(bytes);
+                        items.Add(new ItemObject(itemID, itemPrefix));
+                    }
+                }
+
+                Chests.Add(new ChestObject(items));
+            }
+
             bytes.Dispose();
         }
 
         private int LoadByte(MemoryStream bytes)
         {
             return bytes.ReadByte();
+        }
+
+        private byte LoadByteRaw(MemoryStream bytes)
+        {
+            byte[] readByte = new byte[1];
+            bytes.Read(readByte, 0, 1);
+            return readByte[0];
+        }
+
+        private bool GetBit(byte inputByte, int bitIndex)
+        {
+            return (inputByte & (1 << bitIndex)) != 0;
         }
 
         private Int16 LoadInt16(MemoryStream bytes) 
@@ -179,6 +313,21 @@ namespace Terrarianalyzer
         {
             int inputByte = bytes.ReadByte();
             return inputByte == 1;
+        }
+
+        private List<bool> LoadBitArray(MemoryStream bytes, int numberOfBytes)
+        {
+            List<bool> output = new List<bool>();
+            for(int i = 0; i < numberOfBytes; i++)
+            {
+                byte readByte = LoadByteRaw(bytes);
+                for (int j = 0; j < 8; j++)
+                {
+                    output.Add(GetBit(readByte, j));
+                }
+            }
+
+            return output;
         }
     }
 }
