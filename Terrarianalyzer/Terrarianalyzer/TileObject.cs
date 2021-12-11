@@ -8,11 +8,12 @@ namespace Terrarianalyzer
 {
     public class TileObject
     {
-        public int Type { get; set; }
+        public int TypeID { get; set; }
+        public string TypeName { get { return XMLUtilities.GetTileName(TypeID); } }
 
         public TileObject(int type)
         {
-            Type = type;
+            TypeID = type;
         }
     }
 }

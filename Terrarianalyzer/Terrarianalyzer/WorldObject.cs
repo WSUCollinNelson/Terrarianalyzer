@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Terrarianalyzer.ByteReaderUtilities;
 
 namespace Terrarianalyzer
 {
@@ -61,7 +62,17 @@ namespace Terrarianalyzer
 
         public WorldObject(MemoryStream bytes)
         {
-            //Read through useless pre-header data
+            LoadHeader(bytes);
+
+            LoadTiles(bytes);
+
+            LoadChests(bytes);
+
+            bytes.Dispose();
+        }
+
+        private void LoadHeader(MemoryStream bytes)
+        {
             Version = LoadInt32(bytes);
             Discard(bytes, 20);
             Int16 sectionCount = LoadInt16(bytes);
@@ -106,7 +117,7 @@ namespace Terrarianalyzer
             HardMode = LoadBool(bytes);
             Discard(bytes, 68);
             AnglersCount = LoadInt32(bytes);
-            for(int i =0; i < AnglersCount; i++)
+            for (int i = 0; i < AnglersCount; i++)
             {
                 Anglers.Add(LoadString(bytes));
             }
@@ -114,7 +125,7 @@ namespace Terrarianalyzer
             AnglerQuests = LoadInt32(bytes);
             Discard(bytes, 11);
             KillCount = LoadInt16(bytes);
-            for(int i = 0; i < KillCount; i++)
+            for (int i = 0; i < KillCount; i++)
             {
                 Kills.Add(LoadInt32(bytes));
             }
@@ -131,7 +142,10 @@ namespace Terrarianalyzer
                 TreeTops.Add(LoadInt32(bytes));
             }
             Discard(bytes, 23);
+        }
 
+        private void LoadTiles(MemoryStream bytes)
+        {
             for (int x = 0; x < WorldWidth; x++)
             {
                 for (int y = 0; y < WorldHeight; y++)
@@ -209,7 +223,7 @@ namespace Terrarianalyzer
                         k = LoadByte(bytes);
                     }
                     if (GetBit(activeFlags, 7))
-                    { 
+                    {
                         k = LoadInt16(bytes);
                     }
 
@@ -222,11 +236,14 @@ namespace Terrarianalyzer
                     }
                 }
             }
+        }
 
+        private void LoadChests(MemoryStream bytes)
+        {
             int numberOfChests = LoadInt16(bytes);
             int NumberOfSlots = LoadInt16(bytes);
 
-            for(int i = 0; i < numberOfChests; i++)
+            for (int i = 0; i < numberOfChests; i++)
             {
                 int chestX = LoadInt32(bytes);
                 int chestY = LoadInt32(bytes);
@@ -236,7 +253,7 @@ namespace Terrarianalyzer
                 for (int j = 0; j < NumberOfSlots; j++)
                 {
                     int stackSize = LoadInt16(bytes);
-                    if(stackSize != 0)
+                    if (stackSize != 0)
                     {
                         int itemID = LoadInt32(bytes);
                         int itemPrefix = LoadByte(bytes);
@@ -246,88 +263,6 @@ namespace Terrarianalyzer
 
                 Chests.Add(new ChestObject(items));
             }
-
-            bytes.Dispose();
-        }
-
-        private int LoadByte(MemoryStream bytes)
-        {
-            return bytes.ReadByte();
-        }
-
-        private byte LoadByteRaw(MemoryStream bytes)
-        {
-            byte[] readByte = new byte[1];
-            bytes.Read(readByte, 0, 1);
-            return readByte[0];
-        }
-
-        private bool GetBit(byte inputByte, int bitIndex)
-        {
-            return (inputByte & (1 << bitIndex)) != 0;
-        }
-
-        private Int16 LoadInt16(MemoryStream bytes) 
-        {
-            byte[] result = new byte[2];
-            bytes.Read(result, 0, 2);
-            return BitConverter.ToInt16(result, 0);
-        }
-
-        private Int32 LoadInt32(MemoryStream bytes)
-        {
-            byte[] result = new byte[4];
-            bytes.Read(result, 0, 4);
-            return BitConverter.ToInt32(result, 0);
-        }
-
-        private Int64 LoadInt64(MemoryStream bytes)
-        {
-            byte[] result = new byte[8];
-            bytes.Read(result, 0, 8);
-            return BitConverter.ToInt64(result, 0);
-        }
-
-        private double LoadDouble(MemoryStream bytes)
-        {
-            byte[] result = new byte[8];
-            bytes.Read(result, 0, 8);
-            return BitConverter.ToDouble(result, 0);
-        }
-
-        private void Discard(MemoryStream bytes, int byteCount)
-        {
-            byte[] discardBuffer = new byte[byteCount];
-            bytes.Read(discardBuffer, 0, byteCount);
-        }
-
-        private string LoadString(MemoryStream bytes)
-        {
-            int stringLength = LoadByte(bytes);
-            byte[] stringBuffer = new byte[stringLength];
-            bytes.Read(stringBuffer, 0, stringLength);
-            return Encoding.Default.GetString(stringBuffer);
-        }
-
-        private bool LoadBool(MemoryStream bytes)
-        {
-            int inputByte = bytes.ReadByte();
-            return inputByte == 1;
-        }
-
-        private List<bool> LoadBitArray(MemoryStream bytes, int numberOfBytes)
-        {
-            List<bool> output = new List<bool>();
-            for(int i = 0; i < numberOfBytes; i++)
-            {
-                byte readByte = LoadByteRaw(bytes);
-                for (int j = 0; j < 8; j++)
-                {
-                    output.Add(GetBit(readByte, j));
-                }
-            }
-
-            return output;
         }
     }
 }

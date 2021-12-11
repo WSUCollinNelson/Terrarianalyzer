@@ -9,12 +9,15 @@ namespace Terrarianalyzer
     public class ItemObject
     {
         int ItemID { get; }
-        int ItemPrefix { get; }
+        int ItemPrefixID { get; }
+
+        string ItemName { get { return XMLUtilities.GetItemName(ItemID); } }
+        string ItemPrefix { get { return XMLUtilities.GetItemPrefix(ItemPrefixID); } }
 
         public ItemObject(int itemID, int itemPrefix)
         {
             ItemID = itemID;
-            ItemPrefix = itemPrefix;
+            ItemPrefixID = itemPrefix;
         }
     }
 }
