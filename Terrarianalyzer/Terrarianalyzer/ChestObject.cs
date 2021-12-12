@@ -8,11 +8,13 @@ namespace Terrarianalyzer
 {
     public class ChestObject
     {
-        List<ItemObject> ChestItems { get; } = new List<ItemObject>();
+        public List<ItemObject> ChestItems { get; } = new List<ItemObject>();
+        public (int, int) Position { get; set; }
 
-        public ChestObject(List<ItemObject> chestItems)
+        public ChestObject(List<ItemObject> chestItems, (int, int) position)
         {
             ChestItems = chestItems;
+            Position = position;
         }
     }
 }

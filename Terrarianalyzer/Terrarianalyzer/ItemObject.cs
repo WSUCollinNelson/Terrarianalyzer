@@ -8,11 +8,11 @@ namespace Terrarianalyzer
 {
     public class ItemObject
     {
-        int ItemID { get; }
-        int ItemPrefixID { get; }
+        public int ItemID { get; }
+        public int ItemPrefixID { get; }
 
-        string ItemName { get { return XMLUtilities.GetItemName(ItemID); } }
-        string ItemPrefix { get { return XMLUtilities.GetItemPrefix(ItemPrefixID); } }
+        public string ItemName { get { return XMLUtilities.GetItemName(ItemID); } }
+        public string ItemPrefix { get { return XMLUtilities.GetItemPrefix(ItemPrefixID); } }
 
         public ItemObject(int itemID, int itemPrefix)
         {

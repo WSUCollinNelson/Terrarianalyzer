@@ -8,6 +8,14 @@ using static Terrarianalyzer.ByteReaderUtilities;
 
 namespace Terrarianalyzer
 {
+    public enum LiquidType 
+    {
+        None,
+        Water,
+        Lava,
+        Honey
+    }
+
     public class WorldObject
     {
         #region SectionOneValues
@@ -57,8 +65,8 @@ namespace Terrarianalyzer
         public List<Int32> TreeTops { get; set; } = new List<int>();
         #endregion
 
-        List<TileObject> Tiles = new List<TileObject>();
-        List<ChestObject> Chests = new List<ChestObject>();
+        public List<TileObject> Tiles = new List<TileObject>();
+        public List<ChestObject> Chests = new List<ChestObject>();
 
         public WorldObject(MemoryStream bytes)
         {
@@ -155,6 +163,8 @@ namespace Terrarianalyzer
                     byte tileFlagsHighByte = default(byte);
                     int wallType = 0;
                     int tileType = 0;
+                    int liquidAmount = 0;
+                    LiquidType liquidType = LiquidType.None;
 
                     if (GetBit(activeFlags, 0))
                     {
@@ -206,9 +216,11 @@ namespace Terrarianalyzer
                     }
 
                     int liquidBits = (activeFlags & 0x18) >> 3;
+                    
                     if (liquidBits != 0)
                     {
-                        int liquidAmount = LoadByte(bytes);
+                        liquidAmount = LoadByte(bytes);
+                        liquidType = (LiquidType)liquidBits;
                     }
 
                     if ((tileFlagsHighByte & 0x40) == 64)
@@ -227,12 +239,12 @@ namespace Terrarianalyzer
                         k = LoadInt16(bytes);
                     }
 
-                    Tiles.Add(new TileObject(tileType));
+                    Tiles.Add(new TileObject(tileType, liquidAmount, liquidType));
 
                     for (int i = 0; i < k && y < WorldHeight; i++)
                     {
                         y++;
-                        Tiles.Add(new TileObject(tileType));
+                        Tiles.Add(new TileObject(tileType, liquidAmount, liquidType));
                     }
                 }
             }
@@ -261,7 +273,7 @@ namespace Terrarianalyzer
                     }
                 }
 
-                Chests.Add(new ChestObject(items));
+                Chests.Add(new ChestObject(items, (chestX, chestY)));
             }
         }
     }

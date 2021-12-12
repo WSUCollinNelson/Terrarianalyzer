@@ -10,10 +10,14 @@ namespace Terrarianalyzer
     {
         public int TypeID { get; set; }
         public string TypeName { get { return XMLUtilities.GetTileName(TypeID); } }
+        public int LiquidAmount { get; set; }
+        public LiquidType LiquidType { get; set; }
 
-        public TileObject(int type)
+        public TileObject(int type, int liquidAmount, LiquidType liquidType)
         {
             TypeID = type;
+            LiquidType = liquidType;
+            LiquidAmount = liquidAmount;
         }
     }
 }
