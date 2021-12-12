@@ -63,6 +63,7 @@ namespace Terrarianalyzer
         public List<Int32> PartyMembers { get; set; } = new List<int>();
         public Int32 TreeTopsCount { get; set; }
         public List<Int32> TreeTops { get; set; } = new List<int>();
+        public double HellHeight { get; set; }
         #endregion
 
         public List<TileObject> Tiles = new List<TileObject>();
@@ -150,6 +151,10 @@ namespace Terrarianalyzer
                 TreeTops.Add(LoadInt32(bytes));
             }
             Discard(bytes, 23);
+
+            double hellLevel = (((WorldHeight - 230) - SurfaceHeight) / 6);
+            hellLevel = hellLevel * 6 + SurfaceHeight - 5;
+            HellHeight = hellLevel;
         }
 
         private void LoadTiles(MemoryStream bytes)

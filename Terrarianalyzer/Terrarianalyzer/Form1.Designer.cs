@@ -1,7 +1,7 @@
 ﻿
 namespace Terrarianalyzer
 {
-    partial class Form1
+    partial class Terrarianalyzer
     {
         /// <summary>
         /// Required designer variable.
@@ -29,16 +29,16 @@ namespace Terrarianalyzer
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea9 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea10 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series10 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea11 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series11 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea12 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series12 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -62,6 +62,11 @@ namespace Terrarianalyzer
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.tabControl2 = new System.Windows.Forms.TabControl();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -75,19 +80,22 @@ namespace Terrarianalyzer
             this.groupBox1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
+            this.tabControl2.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            this.tabPage6.SuspendLayout();
             this.SuspendLayout();
             // 
             // chart1
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
+            chartArea9.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea9);
             this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chart1.Location = new System.Drawing.Point(3, 3);
             this.chart1.Margin = new System.Windows.Forms.Padding(0);
             this.chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
+            series9.ChartArea = "ChartArea1";
+            series9.Name = "Series1";
+            this.chart1.Series.Add(series9);
             this.chart1.Size = new System.Drawing.Size(965, 562);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
@@ -140,8 +148,7 @@ namespace Terrarianalyzer
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.chart4);
-            this.tabPage2.Controls.Add(this.chart3);
+            this.tabPage2.Controls.Add(this.tabControl2);
             this.tabPage2.Controls.Add(this.groupBox5);
             this.tabPage2.Controls.Add(this.groupBox4);
             this.tabPage2.Controls.Add(this.groupBox3);
@@ -157,35 +164,37 @@ namespace Terrarianalyzer
             // 
             // chart4
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chart4.ChartAreas.Add(chartArea2);
-            legend1.Name = "Legend1";
-            this.chart4.Legends.Add(legend1);
-            this.chart4.Location = new System.Drawing.Point(455, 279);
+            chartArea10.Name = "ChartArea1";
+            this.chart4.ChartAreas.Add(chartArea10);
+            this.chart4.Dock = System.Windows.Forms.DockStyle.Fill;
+            legend5.Name = "Legend1";
+            this.chart4.Legends.Add(legend5);
+            this.chart4.Location = new System.Drawing.Point(3, 3);
             this.chart4.Name = "chart4";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chart4.Series.Add(series2);
-            this.chart4.Size = new System.Drawing.Size(362, 281);
+            series10.ChartArea = "ChartArea1";
+            series10.Legend = "Legend1";
+            series10.Name = "Series1";
+            this.chart4.Series.Add(series10);
+            this.chart4.Size = new System.Drawing.Size(616, 527);
             this.chart4.TabIndex = 6;
             this.chart4.Text = "chart4";
             // 
             // chart3
             // 
-            chartArea3.Name = "ChartArea1";
-            this.chart3.ChartAreas.Add(chartArea3);
-            legend2.Name = "Legend1";
-            this.chart3.Legends.Add(legend2);
-            this.chart3.Location = new System.Drawing.Point(455, 0);
+            chartArea11.Name = "ChartArea1";
+            this.chart3.ChartAreas.Add(chartArea11);
+            this.chart3.Dock = System.Windows.Forms.DockStyle.Fill;
+            legend6.Name = "Legend1";
+            this.chart3.Legends.Add(legend6);
+            this.chart3.Location = new System.Drawing.Point(3, 3);
             this.chart3.Name = "chart3";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series3.CustomProperties = "PieLabelStyle=Outside";
-            series3.Legend = "Legend1";
-            series3.Name = "Series1";
-            this.chart3.Series.Add(series3);
-            this.chart3.Size = new System.Drawing.Size(362, 277);
+            series11.ChartArea = "ChartArea1";
+            series11.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series11.CustomProperties = "PieLabelStyle=Outside";
+            series11.Legend = "Legend1";
+            series11.Name = "Series1";
+            this.chart3.Series.Add(series11);
+            this.chart3.Size = new System.Drawing.Size(616, 527);
             this.chart3.TabIndex = 5;
             this.chart3.Text = "chart3";
             // 
@@ -202,9 +211,10 @@ namespace Terrarianalyzer
             // totalHoneyLabel
             // 
             this.totalHoneyLabel.AutoSize = true;
-            this.totalHoneyLabel.Location = new System.Drawing.Point(47, 71);
+            this.totalHoneyLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.totalHoneyLabel.Location = new System.Drawing.Point(6, 73);
             this.totalHoneyLabel.Name = "totalHoneyLabel";
-            this.totalHoneyLabel.Size = new System.Drawing.Size(46, 17);
+            this.totalHoneyLabel.Size = new System.Drawing.Size(81, 29);
             this.totalHoneyLabel.TabIndex = 0;
             this.totalHoneyLabel.Text = "label2";
             // 
@@ -221,9 +231,10 @@ namespace Terrarianalyzer
             // totalLavaLabel
             // 
             this.totalLavaLabel.AutoSize = true;
-            this.totalLavaLabel.Location = new System.Drawing.Point(47, 62);
+            this.totalLavaLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.totalLavaLabel.Location = new System.Drawing.Point(6, 69);
             this.totalLavaLabel.Name = "totalLavaLabel";
-            this.totalLavaLabel.Size = new System.Drawing.Size(46, 17);
+            this.totalLavaLabel.Size = new System.Drawing.Size(81, 29);
             this.totalLavaLabel.TabIndex = 0;
             this.totalLavaLabel.Text = "label2";
             // 
@@ -240,9 +251,10 @@ namespace Terrarianalyzer
             // totalWaterLabel
             // 
             this.totalWaterLabel.AutoSize = true;
-            this.totalWaterLabel.Location = new System.Drawing.Point(47, 62);
+            this.totalWaterLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.totalWaterLabel.Location = new System.Drawing.Point(6, 72);
             this.totalWaterLabel.Name = "totalWaterLabel";
-            this.totalWaterLabel.Size = new System.Drawing.Size(46, 17);
+            this.totalWaterLabel.Size = new System.Drawing.Size(81, 29);
             this.totalWaterLabel.TabIndex = 0;
             this.totalWaterLabel.Text = "label2";
             // 
@@ -259,9 +271,10 @@ namespace Terrarianalyzer
             // totalChestsLabel
             // 
             this.totalChestsLabel.AutoSize = true;
-            this.totalChestsLabel.Location = new System.Drawing.Point(50, 62);
+            this.totalChestsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.totalChestsLabel.Location = new System.Drawing.Point(6, 69);
             this.totalChestsLabel.Name = "totalChestsLabel";
-            this.totalChestsLabel.Size = new System.Drawing.Size(46, 17);
+            this.totalChestsLabel.Size = new System.Drawing.Size(81, 29);
             this.totalChestsLabel.TabIndex = 0;
             this.totalChestsLabel.Text = "label2";
             // 
@@ -278,9 +291,10 @@ namespace Terrarianalyzer
             // totalTilesLabel
             // 
             this.totalTilesLabel.AutoSize = true;
-            this.totalTilesLabel.Location = new System.Drawing.Point(50, 62);
+            this.totalTilesLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.totalTilesLabel.Location = new System.Drawing.Point(6, 72);
             this.totalTilesLabel.Name = "totalTilesLabel";
-            this.totalTilesLabel.Size = new System.Drawing.Size(46, 17);
+            this.totalTilesLabel.Size = new System.Drawing.Size(81, 29);
             this.totalTilesLabel.TabIndex = 0;
             this.totalTilesLabel.Text = "label2";
             // 
@@ -300,13 +314,13 @@ namespace Terrarianalyzer
             // 
             // chart2
             // 
-            chartArea4.Name = "ChartArea1";
-            this.chart2.ChartAreas.Add(chartArea4);
+            chartArea12.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea12);
             this.chart2.Location = new System.Drawing.Point(326, 23);
             this.chart2.Name = "chart2";
-            series4.ChartArea = "ChartArea1";
-            series4.Name = "Series1";
-            this.chart2.Series.Add(series4);
+            series12.ChartArea = "ChartArea1";
+            series12.Name = "Series1";
+            this.chart2.Series.Add(series12);
             this.chart2.Size = new System.Drawing.Size(645, 545);
             this.chart2.TabIndex = 6;
             this.chart2.Text = "chart2";
@@ -343,7 +357,49 @@ namespace Terrarianalyzer
             this.comboBox2.Text = "None";
             this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
             // 
-            // Form1
+            // tabPage5
+            // 
+            this.tabPage5.Location = new System.Drawing.Point(0, 0);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(200, 100);
+            this.tabPage5.TabIndex = 0;
+            this.tabPage5.Text = "tabPage5";
+            // 
+            // tabControl2
+            // 
+            this.tabControl2.Controls.Add(this.tabPage4);
+            this.tabControl2.Controls.Add(this.tabPage6);
+            this.tabControl2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.tabControl2.Location = new System.Drawing.Point(338, 3);
+            this.tabControl2.Name = "tabControl2";
+            this.tabControl2.SelectedIndex = 0;
+            this.tabControl2.Size = new System.Drawing.Size(630, 562);
+            this.tabControl2.TabIndex = 7;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.chart3);
+            this.tabPage4.Location = new System.Drawing.Point(4, 25);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(622, 533);
+            this.tabPage4.TabIndex = 0;
+            this.tabPage4.Text = "Global Tiles Chart";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // tabPage6
+            // 
+            this.tabPage6.Controls.Add(this.chart4);
+            this.tabPage6.Location = new System.Drawing.Point(4, 25);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage6.Size = new System.Drawing.Size(622, 533);
+            this.tabPage6.TabIndex = 1;
+            this.tabPage6.Text = "Global Items Chart";
+            this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // Terrarianalyzer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -351,8 +407,8 @@ namespace Terrarianalyzer
             this.Controls.Add(this.tabControl1);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "Terrarianalyzer";
+            this.Text = "Terrarianalyzer";
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -373,6 +429,9 @@ namespace Terrarianalyzer
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).EndInit();
+            this.tabControl2.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage6.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -402,6 +461,11 @@ namespace Terrarianalyzer
         private System.Windows.Forms.DataVisualization.Charting.Chart chart2;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart4;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart3;
+        private System.Windows.Forms.TabControl tabControl2;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TabPage tabPage6;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }
 

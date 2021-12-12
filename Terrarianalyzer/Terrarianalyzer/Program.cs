@@ -26,7 +26,7 @@ namespace Terrarianalyzer
                 container.Register(Component.For<IProcessWorldSaves>().ImplementedBy<WorldSavesProcessor>());
                 WorldObject world = container.Resolve<IProcessWorldSaves>().GetWorldObject();
 
-                Application.Run(new Form1(world));
+                Application.Run(new Terrarianalyzer(world));
             }
         }
     }

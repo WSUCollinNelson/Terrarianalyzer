@@ -11,10 +11,10 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace Terrarianalyzer
 {
-    public partial class Form1 : Form
+    public partial class Terrarianalyzer : Form
     {
         private WorldObject storedWorld;
-        public Form1(WorldObject world)
+        public Terrarianalyzer(WorldObject world)
         {
             storedWorld = world;
             InitializeComponent();
@@ -42,8 +42,11 @@ namespace Terrarianalyzer
             chart1.Series.Clear();
             chart1.ChartAreas.Clear();
             chart1.Legends.Clear();
+            chart1.Annotations.Clear();
 
             chartArea1.Name = "ChartArea";
+            chartArea1.AxisX.Title = "Depth";
+            chartArea1.AxisY.Title = "Frequency";
             this.chart1.ChartAreas.Add(chartArea1);
 
             this.chart1.Name = "tileChart";
@@ -57,6 +60,46 @@ namespace Terrarianalyzer
             {
                 series1.Points.AddXY(i, itemCount[i]);
             }
+
+            VerticalLineAnnotation surfaceLine = new VerticalLineAnnotation()
+            {
+                Name = "Surface",
+                X = world.SurfaceHeight,
+                AxisX = chart1.ChartAreas[0].AxisX,
+                AxisY = chart1.ChartAreas[0].AxisY,
+                Tag = "Surface",
+                ClipToChartArea = "ChartArea",
+                IsInfinitive = true,
+                LineColor = Color.Red
+            };
+
+            VerticalLineAnnotation rockLine = new VerticalLineAnnotation()
+            {
+                Name = "Underground",
+                X = world.RockHeight,
+                AxisX = chart1.ChartAreas[0].AxisX,
+                AxisY = chart1.ChartAreas[0].AxisY,
+                Tag = "Underground",
+                ClipToChartArea = "ChartArea",
+                IsInfinitive = true,
+                LineColor = Color.Red
+            };
+
+            VerticalLineAnnotation hellLine = new VerticalLineAnnotation()
+            {
+                Name = "Hell",
+                X = world.HellHeight,
+                AxisX = chart1.ChartAreas[0].AxisX,
+                AxisY = chart1.ChartAreas[0].AxisY,
+                Tag = "Hell",
+                ClipToChartArea = "ChartArea",
+                IsInfinitive = true,
+                LineColor = Color.Red
+            };
+
+            chart1.Annotations.Add(surfaceLine);
+            chart1.Annotations.Add(rockLine);
+            chart1.Annotations.Add(hellLine);
 
             this.chart1.Series.Add(series1);
             this.chart1.TabIndex = 0;
@@ -137,6 +180,7 @@ namespace Terrarianalyzer
             chart2.Series.Clear();
             chart2.ChartAreas.Clear();
             chart2.Legends.Clear();
+            chart2.Annotations.Clear();
 
             chartArea1.Name = "ChartArea";
             chartArea1.AxisX.Minimum = 0;
@@ -160,6 +204,46 @@ namespace Terrarianalyzer
                     series1.Points.AddXY(chest.Position.Item1, chest.Position.Item2);
                 }
             }
+
+            HorizontalLineAnnotation surfaceLine = new HorizontalLineAnnotation()
+            {
+                Name = "Surface",
+                Y = world.SurfaceHeight,
+                AxisX = chart2.ChartAreas[0].AxisX,
+                AxisY = chart2.ChartAreas[0].AxisY,
+                Tag = "Surface",
+                ClipToChartArea = "ChartArea",
+                IsInfinitive = true,
+                LineColor = Color.Red
+            };
+
+            HorizontalLineAnnotation rockLine = new HorizontalLineAnnotation()
+            {
+                Name = "Underground",
+                Y = world.RockHeight,
+                AxisX = chart2.ChartAreas[0].AxisX,
+                AxisY = chart2.ChartAreas[0].AxisY,
+                Tag = "Underground",
+                ClipToChartArea = "ChartArea",
+                IsInfinitive = true,
+                LineColor = Color.Red
+            };
+
+            HorizontalLineAnnotation hellLine = new HorizontalLineAnnotation()
+            {
+                Name = "Hell",
+                Y = world.HellHeight,
+                AxisX = chart2.ChartAreas[0].AxisX,
+                AxisY = chart2.ChartAreas[0].AxisY,
+                Tag = "Hell",
+                ClipToChartArea = "ChartArea",
+                IsInfinitive = true,
+                LineColor = Color.Red
+            };
+
+            chart2.Annotations.Add(surfaceLine);
+            chart2.Annotations.Add(rockLine);
+            chart2.Annotations.Add(hellLine);
 
             this.chart2.Series.Add(series1);
             this.chart2.TabIndex = 0;
@@ -261,11 +345,11 @@ namespace Terrarianalyzer
             {
                 try
                 {
-                    if (itemCounts[key] > 100)
+                    if (itemCounts[key] > 80)
                     {
                         series1.Points.AddXY(XMLUtilities.GetItemName(key), itemCounts[key]);
                     }
-                    else if(itemCounts[key] > 50)
+                    else if(itemCounts[key] > 40)
                     {
                         series1.Points.AddXY("", itemCounts[key]);
                     }
