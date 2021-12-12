@@ -11,32 +11,58 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace Terrarianalyzer
 {
+    /// <summary>
+    /// Manages the primary Terrarianalyzer form
+    /// </summary>
     public partial class Terrarianalyzer : Form
     {
         private WorldObject storedWorld;
+
+        /// <summary>
+        /// Constructor sets up charts and data sources
+        /// </summary>
+        /// <param name="world">The world to load the forms with</param>
         public Terrarianalyzer(WorldObject world)
         {
-            storedWorld = world;
-            InitializeComponent();
-            DisplayTileDataOnChart(world, "Dirt");
+            if (world != null)
+            {
+                storedWorld = world;
+                InitializeComponent();
 
-            comboBox1.Items.AddRange(XMLUtilities.GetAllTileNames());
-            comboBox2.Items.AddRange(XMLUtilities.GetAllItemNames());
-            totalTilesLabel.Text = world.Tiles.Count.ToString();
-            totalChestsLabel.Text = world.Chests.Count.ToString();
+                //Initialize depth chart
+                DisplayTileDataOnChart(world, "Dirt");
 
-            SetTotalWater();
-            SetTotalLava();
-            SetTotalHoney();
+                //Populate comboboxes
+                comboBox1.Items.AddRange(XMLUtilities.GetAllTileNames());
+                comboBox2.Items.AddRange(XMLUtilities.GetAllItemNames());
+                totalTilesLabel.Text = world.Tiles.Count.ToString();
+                totalChestsLabel.Text = world.Chests.Count.ToString();
 
-            CreateTileChart(world);
-            CreateItemChart(world);
+                //Set statss
+                SetTotalWater();
+                SetTotalLava();
+                SetTotalHoney();
+
+                //Create pie charts
+                CreateTileChart(world);
+                CreateItemChart(world);
+            }
+            else
+            {
+                this.Close();
+            }
         }
 
+        /// <summary>
+        /// Initialize Tile depth data
+        /// </summary>
+        /// <param name="world">The world to load from</param>
+        /// <param name="tileTarget">The tile to find data for</param>
         private void DisplayTileDataOnChart(WorldObject world, string tileTarget)
         {
             int[] itemCount = WorldMiner.CountTilesByDepth(world, XMLUtilities.GetTileID(tileTarget));
 
+            //Creates chart and populates its data
             ChartArea chartArea1 = new ChartArea();
             Series series1 = new Series();
             chart1.Series.Clear();
@@ -61,6 +87,7 @@ namespace Terrarianalyzer
                 series1.Points.AddXY(i, itemCount[i]);
             }
 
+            //Add reference lines
             VerticalLineAnnotation surfaceLine = new VerticalLineAnnotation()
             {
                 Name = "Surface",
@@ -106,11 +133,22 @@ namespace Terrarianalyzer
             this.chart1.Text = "depthChart";
         }
 
+        /// <summary>
+        /// When new tile selected update graph
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DisplayTileDataOnChart(storedWorld, comboBox1.SelectedItem.ToString());
+            if (comboBox1.SelectedItem != null)
+            {
+                DisplayTileDataOnChart(storedWorld, comboBox1.SelectedItem.ToString());
+            }
         }
 
+        /// <summary>
+        /// Finds total water
+        /// </summary>
         private void SetTotalWater()
         {
             int totalAmount = 0;
@@ -124,6 +162,9 @@ namespace Terrarianalyzer
             totalWaterLabel.Text = (totalAmount / 100).ToString();
         }
 
+        /// <summary>
+        /// Finds total lava
+        /// </summary>
         private void SetTotalLava()
         {
             int totalAmount = 0;
@@ -137,6 +178,9 @@ namespace Terrarianalyzer
             totalLavaLabel.Text = (totalAmount / 100).ToString();
         }
 
+        /// <summary>
+        /// Finds total honey
+        /// </summary>
         private void SetTotalHoney()
         {
             int totalAmount = 0;
@@ -150,12 +194,19 @@ namespace Terrarianalyzer
             totalHoneyLabel.Text = (totalAmount / 100).ToString();
         }
 
+        /// <summary>
+        /// When combobox changed, update item plot
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
             textBox1.Text = "";
             StringBuilder chestsFound = new StringBuilder();
             int selectedItemID = XMLUtilities.GetItemID((string)comboBox2.SelectedItem);
             bool foundSome = false;
+
+            //Find all chests that have this item
             foreach(ChestObject chest in storedWorld.Chests)
             {
                 if(chest.ChestItems.Exists(x => x.ItemID == selectedItemID))
@@ -165,6 +216,7 @@ namespace Terrarianalyzer
                 }
             }
 
+            // Error message
             if (!foundSome)
             {
                 chestsFound.AppendLine("Item not found in any chests...");
@@ -173,8 +225,14 @@ namespace Terrarianalyzer
             DisplayChestDataOnChart(storedWorld, (string)comboBox2.SelectedItem);
         }
 
+        /// <summary>
+        /// Updates chest plot to show location of all chests
+        /// </summary>
+        /// <param name="world"></param>
+        /// <param name="itemTarget"></param>
         private void DisplayChestDataOnChart(WorldObject world, string itemTarget)
         {
+            //Init chart
             ChartArea chartArea1 = new ChartArea();
             Series series1 = new Series();
             chart2.Series.Clear();
@@ -205,6 +263,8 @@ namespace Terrarianalyzer
                 }
             }
 
+
+            //Add reference lines
             HorizontalLineAnnotation surfaceLine = new HorizontalLineAnnotation()
             {
                 Name = "Surface",
@@ -250,6 +310,10 @@ namespace Terrarianalyzer
             this.chart2.Text = "chestPlot";
         }
 
+        /// <summary>
+        /// Creates pie chart of all tiles.
+        /// </summary>
+        /// <param name="world"></param>
         private void CreateTileChart(WorldObject world)
         {
             ChartArea chartArea1 = new ChartArea();
@@ -307,6 +371,11 @@ namespace Terrarianalyzer
             this.chart3.Text = "chestPlot";
         }
 
+
+        /// <summary>
+        /// Creates a pie chart of all items int the world
+        /// </summary>
+        /// <param name="world"></param>
         private void CreateItemChart(WorldObject world)
         {
             ChartArea chartArea1 = new ChartArea();

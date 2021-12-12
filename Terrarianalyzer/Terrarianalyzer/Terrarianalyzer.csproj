@@ -56,23 +56,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ByteReaderUtilities.cs" />
-    <Compile Include="ChestObject.cs" />
+    <Compile Include="StaticUtilities\ByteReaderUtilities.cs" />
+    <Compile Include="ObjectRepresentations\ChestObject.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="IProcessWorldSaves.cs" />
-    <Compile Include="ItemObject.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="WorldSaves\IProcessWorldSaves.cs" />
+    <Compile Include="ObjectRepresentations\ItemObject.cs" />
+    <Compile Include="WorldSaves\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TileObject.cs" />
-    <Compile Include="WorldMiner.cs" />
-    <Compile Include="WorldObject.cs" />
-    <Compile Include="WorldSavesProcessor.cs" />
-    <Compile Include="XMLUtilities.cs" />
+    <Compile Include="ObjectRepresentations\TileObject.cs" />
+    <Compile Include="StaticUtilities\WorldMiner.cs" />
+    <Compile Include="ObjectRepresentations\WorldObject.cs" />
+    <Compile Include="WorldSaves\WorldSavesProcessor.cs" />
+    <Compile Include="StaticUtilities\XMLUtilities.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -101,7 +101,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="tiles.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
